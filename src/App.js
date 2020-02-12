@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const englishMessages = message => {
+  if (message == "hello.world") {
+    return "Hello, World!";
+  }
+  return "Not yet translated";
+};
+
+const TranslationContext = React.createContext();
+
+const Greeting = () => {
+  const translate = useContext(TranslationContext);
+  return <div>{translate("hello.world")}.</div>;
+};
+
+const App = () => (
+  <TranslationContext.Provider value={englishMessages}>
+    <Greeting />
+  </TranslationContext.Provider>
+);
 
 export default App;

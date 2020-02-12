@@ -1,12 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+import * as isActive from './activityFns.js'
+import * as singleSpa from 'single-spa'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+singleSpa.registerApplication(
+	'navigation',
+	() => import('./navigation'),
+	isActive.navigation
+);
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+singleSpa.registerApplication(
+	'main',
+	() => import('./main'),
+	isActive.main
+);
+
+singleSpa.registerApplication(
+	'client',
+	() => import('./client'),
+	isActive.client
+);
+
+singleSpa.registerApplication(
+	'info',
+	() => import('./info'),
+	isActive.info
+);
+
+singleSpa.start();
+
 serviceWorker.unregister();
